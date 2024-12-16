@@ -1,8 +1,9 @@
+import Landing from "./Components/Landing";
 function App() {
   return (
-    <>
-      <h1>Hello world!</h1>
-    </>
+    <div>
+      <Landing />
+    </div>
   );
 }
 
