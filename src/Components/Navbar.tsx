@@ -1,17 +1,20 @@
+import { Link } from "react-router-dom";
+
 function Navbar() {
   return (
-    // Navbar sticky
-    <div className="sticky top-0 bg-slate-600	 shadow-md z-10">
+    <div className="sticky top-0 bg-slate-600 shadow-md z-10">
       <nav className="flex justify-between items-center px-8 py-4">
         {/* Logo o título */}
-        <div className="text-2xl font-bold text-black">The Elder Cards</div>
+        <div className="text-2xl font-bold text-black">
+          <Link to="/">The Elder Cards</Link>
+        </div>
 
         {/* Links del Navbar */}
         <ul className="flex space-x-8">
           <li>
-            <a href="#inicio" className="hover:text-gray-500">
+            <Link to="/" className="hover:text-gray-500">
               Inicio
-            </a>
+            </Link>
           </li>
           <li>
             <a href="#cartas" className="hover:text-gray-500">
@@ -29,14 +32,15 @@ function Navbar() {
             </a>
           </li>
         </ul>
+
         <ul className="flex space-x-8">
           <li>
-            <a href="#inicio" className="hover:text-gray-500">
+            <Link to="/register" className="hover:text-gray-500">
               Registro
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#inicio" className="hover:text-gray-500">
+            <a href="#login" className="hover:text-gray-500">
               Login
             </a>
           </li>
