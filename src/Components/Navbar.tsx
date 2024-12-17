@@ -40,9 +40,9 @@ function Navbar() {
             </Link>
           </li>
           <li>
-            <a href="#login" className="hover:text-gray-500">
+            <Link to="/login" className="hover:text-gray-500">
               Login
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
