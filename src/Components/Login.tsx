@@ -1,7 +1,9 @@
+// Login.tsx
 import { useState } from "react";
+import { FaEnvelope, FaLock } from "react-icons/fa";
+import { useAuth } from "../contexts/AuthContext"; // Importamos el hook useAuth
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import { FaEnvelope, FaLock } from "react-icons/fa";
 
 function Login() {
   // Estados para los campos del formulario
@@ -9,6 +11,9 @@ function Login() {
   const [password, setPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
+
+  // Accedemos a la función login desde el contexto
+  const { login } = useAuth();
 
   // Expresión regular para la validación del email
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -35,6 +40,11 @@ function Login() {
       // Simulación de éxito en el login
       setErrorMessage("");
       setSuccessMessage("¡Inicio de sesión exitoso!");
+
+      // Llamamos al login del contexto con el email del usuario
+      login(email);
+
+      // Limpiamos los campos
       setEmail("");
       setPassword("");
     }
