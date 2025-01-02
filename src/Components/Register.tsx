@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import Layout from "../components/Layout";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 
 function Register() {
@@ -52,129 +51,111 @@ function Register() {
 
   return (
     <div className="relative min-h-screen bg-cover bg-center">
-      <div className="flex">
-        {/* Banda negra a la izquierda */}
-        <div
-          className="w-1/6 bg-black opacity-90 sticky top-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/bg.webp')" }}
-        ></div>
+      <Layout>
+        {/* Formulario Register */}
+        <div className="flex flex-grow items-center justify-center py-12">
+          <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md">
+            <h2 className="text-3xl font-bold mb-6 text-center text-black">
+              Crea tu cuenta
+            </h2>
 
-        {/* Contenido principal */}
-        <div className="w-4/6 flex flex-col justify-between bg-black bg-opacity-90 min-h-screen">
-          <Navbar />
-
-          {/* Formulario Register */}
-          <div className="flex items-center justify-center py-12">
-            <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md">
-              <h2 className="text-3xl font-bold mb-6 text-center text-black">
-                Crea tu cuenta
-              </h2>
-
-              {/* Mostrar mensajes de error o éxito */}
-              {errorMessage && (
-                <div className="mb-4 text-red-500 text-center">
-                  {errorMessage}
-                </div>
-              )}
-              {successMessage && (
-                <div className="mb-4 text-green-500 text-center">
-                  {successMessage}
-                </div>
-              )}
-
-              <form onSubmit={handleSubmit}>
-                {/* Campo Usuario */}
-                <div className="mb-4 relative">
-                  <label
-                    className="block text-gray-700 font-medium mb-2"
-                    htmlFor="username"
-                  >
-                    Nombre de usuario
-                  </label>
-                  <div className="flex items-center border rounded-md px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500">
-                    <FaUser className="text-gray-500 mr-2" />
-                    <input
-                      type="text"
-                      id="username"
-                      value={username}
-                      onChange={handleChange}
-                      placeholder="Tu nombre de usuario"
-                      className="w-full outline-none"
-                    />
-                  </div>
-                </div>
-
-                {/* Campo Email */}
-                <div className="mb-4 relative">
-                  <label
-                    className="block text-gray-700 font-medium mb-2"
-                    htmlFor="email"
-                  >
-                    Correo electrónico
-                  </label>
-                  <div className="flex items-center border rounded-md px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500">
-                    <FaEnvelope className="text-gray-500 mr-2" />
-                    <input
-                      type="email"
-                      id="email"
-                      value={email}
-                      onChange={handleChange}
-                      placeholder="ejemplo@correo.com"
-                      className="w-full outline-none"
-                    />
-                  </div>
-                </div>
-
-                {/* Campo Password */}
-                <div className="mb-6 relative">
-                  <label
-                    className="block text-gray-700 font-medium mb-2"
-                    htmlFor="password"
-                  >
-                    Contraseña
-                  </label>
-                  <div className="flex items-center border rounded-md px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500">
-                    <FaLock className="text-gray-500 mr-2" />
-                    <input
-                      type="password"
-                      id="password"
-                      value={password}
-                      onChange={handleChange}
-                      placeholder="Tu contraseña"
-                      className="w-full outline-none"
-                    />
-                  </div>
-                </div>
-
-                {/* Botón */}
-                <button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-2 rounded-md hover:from-blue-600 hover:to-blue-700 transition-transform transform hover:scale-105"
-                >
-                  Registrarse
-                </button>
-              </form>
-
-              {/* Enlace a Login */}
-              <div className="text-center mt-4">
-                <p className="text-gray-700">
-                  ¿Ya tienes una cuenta?{" "}
-                  <a href="/login" className="text-blue-600 hover:underline">
-                    Inicia sesión
-                  </a>
-                </p>
+            {/* Mostrar mensajes de error o éxito */}
+            {errorMessage && (
+              <div className="mb-4 text-red-500 text-center">
+                {errorMessage}
               </div>
+            )}
+            {successMessage && (
+              <div className="mb-4 text-green-500 text-center">
+                {successMessage}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit}>
+              {/* Campo Usuario */}
+              <div className="mb-4 relative">
+                <label
+                  className="block text-gray-700 font-medium mb-2"
+                  htmlFor="username"
+                >
+                  Nombre de usuario
+                </label>
+                <div className="flex items-center border rounded-md px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500">
+                  <FaUser className="text-gray-500 mr-2" />
+                  <input
+                    type="text"
+                    id="username"
+                    value={username}
+                    onChange={handleChange}
+                    placeholder="Tu nombre de usuario"
+                    className="w-full outline-none"
+                  />
+                </div>
+              </div>
+
+              {/* Campo Email */}
+              <div className="mb-4 relative">
+                <label
+                  className="block text-gray-700 font-medium mb-2"
+                  htmlFor="email"
+                >
+                  Correo electrónico
+                </label>
+                <div className="flex items-center border rounded-md px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500">
+                  <FaEnvelope className="text-gray-500 mr-2" />
+                  <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={handleChange}
+                    placeholder="ejemplo@correo.com"
+                    className="w-full outline-none"
+                  />
+                </div>
+              </div>
+
+              {/* Campo Password */}
+              <div className="mb-6 relative">
+                <label
+                  className="block text-gray-700 font-medium mb-2"
+                  htmlFor="password"
+                >
+                  Contraseña
+                </label>
+                <div className="flex items-center border rounded-md px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500">
+                  <FaLock className="text-gray-500 mr-2" />
+                  <input
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={handleChange}
+                    placeholder="Tu contraseña"
+                    className="w-full outline-none"
+                  />
+                </div>
+              </div>
+
+              {/* Botón */}
+              <button
+                type="submit"
+                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-2 rounded-md hover:from-blue-600 hover:to-blue-700 transition-transform transform hover:scale-105"
+              >
+                Registrarse
+              </button>
+            </form>
+
+            {/* Enlace a Login */}
+            <div className="text-center mt-4">
+              <p className="text-gray-700">
+                ¿Ya tienes una cuenta?{" "}
+                <a href="/login" className="text-blue-600 hover:underline">
+                  Inicia sesión
+                </a>
+              </p>
             </div>
           </div>
-          <Footer />
         </div>
-
-        {/* Banda negra a la derecha */}
-        <div
-          className="w-1/6 bg-black opacity-90 sticky top-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/bg.webp')" }}
-        ></div>
-      </div>
+      </Layout>
     </div>
   );
 }
