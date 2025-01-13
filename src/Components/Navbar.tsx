@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext"; // Asegúrate de que el hook useAuth está correctamente importado
+import { useAuth } from "../contexts/AuthContext"; // Hook de autenticación
 
 function Navbar() {
-  const { user, logout } = useAuth(); // Accede al contexto de autenticación
+  const { user, logout } = useAuth(); // Contexto de autenticación
+
+  // Imagen por defecto si el usuario no tiene imagen
+  const defaultImage = "https://via.placeholder.com/40";
 
   return (
     <div className="sticky top-0 bg-slate-600 shadow-md z-10">
@@ -36,8 +39,8 @@ function Navbar() {
           </li>
         </ul>
 
-        {/* Links de autenticación (Login/Registro o Perfil y Logout) */}
-        <ul className="flex space-x-8">
+        {/* Links de autenticación */}
+        <ul className="flex space-x-8 items-center">
           {!user ? (
             <>
               <li>
@@ -54,14 +57,20 @@ function Navbar() {
           ) : (
             <>
               <li>
-                <Link to="/profile" className="hover:text-gray-500">
-                  Perfil
+                <Link to="/profile" className="flex items-center space-x-2">
+                  {/* Imagen de perfil */}
+                  <img
+                    src={user.photoURL || defaultImage} // Imagen del usuario o la predeterminada
+                    alt="Perfil"
+                    className="w-8 h-8 rounded-full border-2 border-white"
+                  />
+                  <span className="text-black hover:text-gray-500">Perfil</span>
                 </Link>
               </li>
               <li>
                 <button
-                  onClick={logout} // Al hacer logout, se ejecuta la función logout del contexto
-                  className="text-gray-500 hover:text-red-500"
+                  onClick={logout}
+                  className="text-black hover:text-gray-500"
                 >
                   Cerrar sesión
                 </button>

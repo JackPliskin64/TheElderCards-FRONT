@@ -1,65 +1,68 @@
-// Login.tsx
 import { useState } from "react";
 import { FaEnvelope, FaLock } from "react-icons/fa";
-import { useAuth } from "../contexts/AuthContext"; // Importamos el hook useAuth
+import { useAuth, users } from "../contexts/AuthContext"; // Usamos el contexto AuthContext
+import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 
 function Login() {
-  // Estados para los campos del formulario
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
 
-  // Accedemos a la función login desde el contexto
-  const { login } = useAuth();
+  const navigate = useNavigate();
+  const { login } = useAuth(); // Obtenemos usuarios y la función login del contexto
 
-  // Expresión regular para la validación del email
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-  // Manejar el cambio en los campos del formulario
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     if (id === "email") setEmail(value);
     if (id === "password") setPassword(value);
   };
 
-  // Manejar el envío del formulario (simulación de login)
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Comprobaciones de validación
     if (!email || !password) {
       setErrorMessage("Todos los campos son obligatorios.");
       setSuccessMessage("");
-    } else if (!emailRegex.test(email)) {
+      return;
+    }
+
+    if (!emailRegex.test(email)) {
       setErrorMessage("El correo electrónico no es válido.");
       setSuccessMessage("");
-    } else {
-      // Simulación de éxito en el login
+      return;
+    }
+
+    // Validar credenciales contra los usuarios del contexto
+    const user = users.find(
+      (u) => u.email === email && u.password === password
+    );
+
+    if (user) {
       setErrorMessage("");
       setSuccessMessage("¡Inicio de sesión exitoso!");
-
-      // Llamamos al login del contexto con el email del usuario
-      login(email);
-
-      // Limpiamos los campos
+      login(email, password); // Iniciar sesión con el contexto
       setEmail("");
       setPassword("");
+      navigate("/");
+    } else {
+      setErrorMessage("Correo o contraseña incorrectos.");
+      setSuccessMessage("");
     }
   };
 
   return (
     <div className="relative min-h-screen bg-cover bg-center">
       <Layout>
-        {/* Formulario Login */}
         <div className="flex-grow flex items-center justify-center py-12">
           <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md">
             <h2 className="text-3xl font-bold mb-6 text-center text-black">
               Inicia sesión
             </h2>
 
-            {/* Mostrar mensajes de error o éxito */}
             {errorMessage && (
               <div className="mb-4 text-red-500 text-center">
                 {errorMessage}
@@ -72,7 +75,6 @@ function Login() {
             )}
 
             <form onSubmit={handleSubmit}>
-              {/* Campo Email */}
               <div className="mb-4 relative">
                 <label
                   className="block text-gray-700 font-medium mb-2"
@@ -93,7 +95,6 @@ function Login() {
                 </div>
               </div>
 
-              {/* Campo Password */}
               <div className="mb-6 relative">
                 <label
                   className="block text-gray-700 font-medium mb-2"
@@ -114,7 +115,6 @@ function Login() {
                 </div>
               </div>
 
-              {/* Botón */}
               <button
                 type="submit"
                 className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-2 rounded-md hover:from-blue-600 hover:to-blue-700 transition-transform transform hover:scale-105"
@@ -123,7 +123,6 @@ function Login() {
               </button>
             </form>
 
-            {/* Enlace a Register */}
             <div className="text-center mt-4">
               <p className="text-gray-700">
                 ¿No tienes una cuenta?{" "}
